@@ -8,4 +8,11 @@ This is a per-home system designed to run on low powered devices such a Raspberr
 
 ## Who can have it?
 **EVERYONE!!!** This uses the [MIT license](./LICENSE), so anyone and everyone can use it. Want a feature? Add it - it's open source!
- 
+
+## Contributing
+Pushing to the `main` branch is prohibited, with a rule setup for prevention - you *will* get an error if you push directly to `main`. Instead, follow the steps below to get your changes viewed for approval:
+1. Clone the repository to work on
+2. Create a branch for your changes. Give it a meaningful name, like in the format `feature/<username>-<feature name>`. ***Add your changes here***
+3. Create a pull request, and sit back and wait until it's viewed
+---
+Also, a **big thank you** to any and all who contribute! This was an idea I had from an inspirational Instagram post that I turned into a school project, and any useful features and/or bug fixes is greatly appreciated
