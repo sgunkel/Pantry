@@ -8,3 +8,4 @@ This is a per-home system designed to run on low powered devices such a Raspberr
 
 ## Who can have it?
 **EVERYONE!!!** This uses the [MIT license](./LICENSE), so anyone and everyone can use it. Want a feature? Add it - it's open source!
+ 
