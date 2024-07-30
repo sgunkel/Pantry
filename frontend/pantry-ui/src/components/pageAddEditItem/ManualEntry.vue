@@ -34,7 +34,11 @@ export default {
             </div>
         </div>
 
-        <div class="scan-barcode-btn">Scan Barcode</div>
+        <div
+          class="scan-barcode-btn"
+          @click="$emit('switchToScanner')">
+            Scan Barcode
+        </div>
     </div>
 </template>
 

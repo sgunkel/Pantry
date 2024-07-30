@@ -1,9 +1,11 @@
 <script>
 import ManualEntry from './ManualEntry.vue'
+import ScannerEntry from './ScannerEntry.vue'
 
 export default {
     components: {
-        ManualEntry
+        ManualEntry,
+        ScannerEntry,
     },
     emits: [
         'cancelBtnPressed',
@@ -14,6 +16,18 @@ export default {
                 onBarcodeScannerSlide: false, // this will be changed on load based on camera permissions/availability
             }
         }
+    },
+    methods: {
+        showScanner() {
+            this.meta.onBarcodeScannerSlide = true
+        },
+        showManualEntry() {
+            this.meta.onBarcodeScannerSlide = false
+            this.closeBarcodeScanner()
+        },
+        closeBarcodeScanner() {
+            this.$forceUpdate()
+        }
     }
 }
 </script>
@@ -21,15 +35,19 @@ export default {
 <template>
     <div class="vei-background">
         <div class="vie-input-view">
-            <h1 v-if="this.meta.onBarcodeScannerSlide">
-                implement this next!
-            </h1>
-            <ManualEntry v-else>
+            <ScannerEntry
+              v-if="this.meta.onBarcodeScannerSlide"
+              @switch-to-manual="showManualEntry">
+            </ScannerEntry>
+            <ManualEntry
+              v-else
+              @switch-to-scanner="showScanner">
             </ManualEntry>
         </div>
 
         <router-link
           class="vei-cancel-btn"
+          @click="this.closeBarcodeScanner()"
           :to="{ name: 'home' }">
             <span>Cancel</span>
         </router-link>
