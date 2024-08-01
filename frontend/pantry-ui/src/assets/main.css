@@ -53,6 +53,7 @@ a,
   --color-blue-on-dark: #54B7F0;
   --color-blue-on-light: #4FF0D9;
   --color-green: #00bd7e;
+  --color-red: #F04441;
 
   --primary-color: var(--color-green);
   --secondary-color: var(--color-blue-on-dark);
@@ -63,12 +64,8 @@ a,
 
   --important-small-font-size: 5vw;
   
-  /* figure this out later - we will definitely use them */
-/*
-  --success-color:
-  --warning-color:
-  --danger-color:
-*/
+  --success-color: var(--color-green);
+  --warning-color: var(--color-red);
 }
 
 body {
@@ -90,15 +87,3 @@ html, body {
     height: inherit;
     width: inherit;
 }
-
-/* Common functionalities exposed globally - remove these as we want to move away from them... */
-.flex-horizontally {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-vertically {
-  display: flex;
-  flex-direction: row;
-}
-

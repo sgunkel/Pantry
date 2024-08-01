@@ -1,11 +1,13 @@
 <script>
 import ProgressHeader from "../components/interactive/ProgressHeader.vue"
 import ViewEnterItem from "../components/pageAddEditItem/ViewEnterItem.vue"
+import ViewConfirmItem from "../components/pageAddEditItem/ViewComfirmItem.vue"
 
 export default {
     components: {
         ProgressHeader,
         ViewEnterItem,
+        ViewConfirmItem,
     },
     data() {
         return {
@@ -21,7 +23,9 @@ export default {
         }
     },
     mounted() {
-        this.meta.currentPage = this.meta.pages[0]
+        // this.meta.currentPage = this.meta.pages[0]
+
+        this.meta.currentPage = this.meta.pages[1]
 
         // demo - change functionality to be handled by a simple button..
         // this.meta.pagesComplete.push(this.meta.pages[0])
@@ -43,11 +47,19 @@ export default {
             :pagesComplete="meta.pagesComplete">
         </ProgressHeader>
 
-        <!-- just for now - we'll add the other slides and logic for them later -->
-         <!-- <div class="aei-view-background"> -->
-            <ViewEnterItem>
-            </ViewEnterItem>
-        <!-- </div> -->
+        <ViewEnterItem
+          v-if="this.meta.currentPage === this.meta.pages[0]">
+        </ViewEnterItem>
+        <ViewConfirmItem
+          v-else-if="this.meta.currentPage === this.meta.pages[1]"
+          :itemData="{}">
+        </ViewConfirmItem>
+        <div
+          v-else
+          class="aei-something-went-wrong">
+            <h2>Something went wrong</h2>
+            <p>Try refreshing the browser to fix the issue</p>
+        </div>
     </div>
 </template>
 
@@ -57,6 +69,11 @@ export default {
     flex-direction: column;
     height: 100%;
     margin: 0;
+}
+
+.aei-something-went-wrong {
+    color: var(--foreground-color);
+    padding: 0.5em;
 }
 
 </style>
