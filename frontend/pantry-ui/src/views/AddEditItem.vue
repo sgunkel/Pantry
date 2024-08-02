@@ -1,7 +1,7 @@
 <script>
 import ProgressHeader from "../components/interactive/ProgressHeader.vue"
 import ViewEnterItem from "../components/pageAddEditItem/ViewEnterItem.vue"
-import ViewConfirmItem from "../components/pageAddEditItem/ViewComfirmItem.vue"
+import ViewConfirmItem from "../components/pageAddEditItem/ViewConfirmItem.vue"
 
 export default {
     components: {
