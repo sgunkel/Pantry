@@ -2,12 +2,14 @@
 import ProgressHeader from "../components/interactive/ProgressHeader.vue"
 import ViewEnterItem from "../components/pageAddEditItem/ViewEnterItem.vue"
 import ViewConfirmItem from "../components/pageAddEditItem/ViewConfirmItem.vue"
+import ViewSummary from "../components/pageAddEditItem/ViewSummary.vue";
 
 export default {
     components: {
         ProgressHeader,
         ViewEnterItem,
         ViewConfirmItem,
+        ViewSummary,
     },
     data() {
         return {
@@ -25,7 +27,7 @@ export default {
     mounted() {
         // this.meta.currentPage = this.meta.pages[0]
 
-        this.meta.currentPage = this.meta.pages[1]
+        this.meta.currentPage = this.meta.pages[2]
 
         // demo - change functionality to be handled by a simple button..
         // this.meta.pagesComplete.push(this.meta.pages[0])
@@ -54,6 +56,9 @@ export default {
           v-else-if="this.meta.currentPage === this.meta.pages[1]"
           :itemData="{}">
         </ViewConfirmItem>
+        <ViewSummary
+          v-else-if="this.meta.currentPage === this.meta.pages[2]">
+        </ViewSummary>
         <div
           v-else
           class="aei-something-went-wrong">
