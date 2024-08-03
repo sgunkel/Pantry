@@ -1,4 +1,4 @@
-@import './base.css';
+/* @import './base.css';
 
 #app {
   max-width: 1280px;
@@ -32,4 +32,58 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
+} */
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue';
+}
+
+:root {
+  /* Borrowed from Vue's theme styles because I like the combinations */
+  --color-white: #ffffff;
+  --color-white-soft: #f8f8f8;
+  --color-white-mute: #f2f2f2;
+  --color-black: #181818;
+  --color-black-soft: #222222;
+
+  --color-gray: #505050;
+  --color-blue-on-dark: #54B7F0;
+  --color-blue-on-light: #4FF0D9;
+  --color-green: #00bd7e;
+  --color-red: #F04441;
+
+  --primary-color: var(--color-green);
+  --secondary-color: var(--color-blue-on-dark);
+  --tertiary-color: var(--color-white-soft);
+
+  --background-color: var(--color-black-soft);
+  --foreground-color: var(--color-white-mute);
+
+  --important-small-font-size: 5vw;
+  
+  --success-color: var(--color-green);
+  --warning-color: var(--color-red);
+}
+
+body {
+  font-size: 1.5rem;
+  color: var(--color-black);
+  touch-action: manipulation; /* Disables double tap to zoom on mobile */
+}
+
+html, body {
+  background-color: var(--background-color);
+  margin: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+    height: inherit;
+    width: inherit;
 }
