@@ -1,5 +1,5 @@
 <script>
-import QuantityEntry from "../../components/pageAddEditItem/QuantityEntry.vue"
+import QuantityEntry from "./QuantityEntry.vue"
 
 export default {
     props: [
