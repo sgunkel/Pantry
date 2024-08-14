@@ -40,7 +40,6 @@ export default {
 
 <style>
 .si-background {
-    /* padding: 0.15em; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -8,9 +8,12 @@ export default {
     components: {
         SelectionIndicator,
     },
+    props: [
+        'showSearchBar',
+    ],
     emits: [
         'optionChanged',
-        'searchTextChanged'
+        'searchTextChanged',
     ],
     data() {
         return {
@@ -40,7 +43,9 @@ export default {
           @optionChanged="relayOptionChanged">
         </SelectionIndicator>
 
-        <div class="sh-search-bar">
+        <div
+          v-if="this.showSearchBar"
+          class="sh-search-bar">
             <input
               type="text"
               placeholder="Search..."
