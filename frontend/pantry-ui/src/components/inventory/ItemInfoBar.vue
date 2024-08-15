@@ -32,6 +32,7 @@ export default {
 <template>
     <div class="iib-background">
         <Checkbox
+          :checked="item.checked"
           @checked-state-changed="relayItemSelected">
         </Checkbox>
         <span

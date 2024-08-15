@@ -1,17 +1,14 @@
 <script>
 export default {
+    props: [
+        'checked',
+    ],
     emits: [
         'checkedStateChanged',
     ],
-    data() {
-        return {
-            checked: false,
-        }
-    },
     methods: {
         relayStateChanged() {
-            this.checked = !this.checked
-            this.$emit('checkedStateChanged', this.checked)
+            this.$emit('checkedStateChanged', !this.checked)
         }
     }
 }

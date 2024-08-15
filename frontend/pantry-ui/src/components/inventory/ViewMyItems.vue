@@ -14,83 +14,91 @@ export default {
                     quantity: 12
                 },
                 {
-                    name: 'coke',
+                    name: 'sprite',
                     quantity: 12
                 },
                 {
-                    name: 'coke',
+                    name: 'dr pepper',
                     quantity: 12
                 },
                 {
-                    name: 'coke',
+                    name: 'mnt dew',
                     quantity: 12
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'bread',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'cookies (4 pack)',
+                    quantity: 3
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'mac n cheese',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'spaghetti',
+                    quantity: 3
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'alfredo sauce',
+                    quantity: 2
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'garlic',
+                    quantity: 4
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'parmesan cheese',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'basil',
+                    quantity: 4
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'oregano',
+                    quantity: 4
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'tomato sauce',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'ground beef (1lb)',
+                    quantity: 2
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'hamburger buns (8 pack)',
+                    quantity: 2
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'sliced American cheese',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'sliced Swiss cheese',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'sliced havarti cheese',
+                    quantity: 1
                 },
                 {
-                    name: 'coke',
-                    quantity: 12
+                    name: 'doritos',
+                    quantity: 2
                 },
             ],
+            itemsSelected: [],
         }
+    },
+    mounted() {
+        this.allItems.forEach(item => {
+            if (item.checked === undefined) {
+                item.checked = false
+            }
+        })
     },
     methods: {
         itemSelected(item, checked) {
@@ -98,11 +106,40 @@ export default {
             console.log(item)
             console.log('checked?')
             console.log(checked)
+            item.checked = checked
+            if (checked) {
+                this.addSelectedItem(item)
+            }
+            else {
+                this.removeSelectedItem(item)
+            }
+            console.log(this.itemsSelected)
         },
         moreItemInfoRequested(item) {
             console.log('more info requested on object:')
             console.log(item)
         },
+        addSelectedItem(item) {
+            this.itemsSelected.push(item)
+        },
+        removeSelectedItem(item) {
+            let index = this.itemsSelected.indexOf(item)
+            if (index > -1) {
+                this.itemsSelected.splice(index, 1)
+            }
+        },
+        selectAllItems() {
+            this.allItems.forEach(item => {
+                if (!item.checked) {
+                    this.itemSelected(item, true)
+                }
+            })
+        },
+        deselectAllItems() {
+            this.itemsSelected.forEach(item => item.checked = false)
+            this.itemsSelected.length = 0 // why is JS like this?
+            console.log(this.itemsSelected)
+        }
     }
 }
 </script>
@@ -124,7 +161,14 @@ export default {
                 Delete
             </div>
             <div
+              v-else-if="allItems.length === itemsSelected.length"
+              @click="deselectAllItems()"
+              class="vmi-footer-ctrl-btn">
+                Deselect All
+            </div>
+            <div
               v-else
+              @click="selectAllItems()"
               class="vmi-footer-ctrl-btn">
                 Select All
             </div>
