@@ -1,9 +1,20 @@
 <script>
 import ViewItemList from './ViewItemList.vue';
+import ViewItemInfo from './ViewItemInfo.vue';
+
+const mockNutritionalValues = {
+    'calories': 100,
+    'sugar (g)': 5,
+    'protein': 0,
+    'total fats': '0.1g',
+    'dietary fibers': '0g',
+    'sodium': '196mg',
+}
 
 export default {
     components: {
         ViewItemList,
+        ViewItemInfo,
     },
     data() {
         return {
@@ -11,86 +22,107 @@ export default {
             allItems: [
                 {
                     name: 'coke',
-                    quantity: 12
+                    quantity: 12,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'sprite',
-                    quantity: 12
+                    quantity: 12,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'dr pepper',
-                    quantity: 12
+                    quantity: 12,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'mnt dew',
-                    quantity: 12
+                    quantity: 12,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'bread',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'cookies (4 pack)',
-                    quantity: 3
+                    quantity: 3,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'mac n cheese',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'spaghetti',
-                    quantity: 3
+                    quantity: 3,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'alfredo sauce',
-                    quantity: 2
+                    quantity: 2,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'garlic',
-                    quantity: 4
+                    quantity: 4,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'parmesan cheese',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'basil',
-                    quantity: 4
+                    quantity: 4,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'oregano',
-                    quantity: 4
+                    quantity: 4,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'tomato sauce',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'ground beef (1lb)',
-                    quantity: 2
+                    quantity: 2,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'hamburger buns (8 pack)',
-                    quantity: 2
+                    quantity: 2,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'sliced American cheese',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'sliced Swiss cheese',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'sliced havarti cheese',
-                    quantity: 1
+                    quantity: 1,
+                    nutritionalData: mockNutritionalValues,
                 },
                 {
                     name: 'doritos',
-                    quantity: 2
+                    quantity: 2,
+                    nutritionalData: mockNutritionalValues,
                 },
             ],
             itemsSelected: [],
+            itemOfInterest: undefined,
         }
     },
     mounted() {
@@ -118,6 +150,8 @@ export default {
         moreItemInfoRequested(item) {
             console.log('more info requested on object:')
             console.log(item)
+            this.itemOfInterest = item
+            this.showDeleteBtn = true
         },
         addSelectedItem(item) {
             this.itemsSelected.push(item)
@@ -139,7 +173,11 @@ export default {
             this.itemsSelected.forEach(item => item.checked = false)
             this.itemsSelected.length = 0 // why is JS like this?
             console.log(this.itemsSelected)
-        }
+        },
+        hideInfoPanel() {
+            this.itemOfInterest = undefined
+            this.showDeleteBtn = false
+        },
     }
 }
 </script>
@@ -149,15 +187,21 @@ export default {
         <div class="vmi-view">
             <ViewItemList
               :items="this.allItems"
+              :class="{ 'vmi-hide': this.itemOfInterest !== undefined }"
               @item-selected="itemSelected"
               @more-item-info="moreItemInfoRequested">
             </ViewItemList>
+            <ViewItemInfo
+              :class="{ 'vmi-hide': this.itemOfInterest === undefined }"
+              :item="this.itemOfInterest"
+              @canceled="hideInfoPanel">
+            </ViewItemInfo>
         </div>
 
         <div class="vmi-footer-buttons">
             <div
               v-if="this.showDeleteBtn"
-              class="vmi-footer-ctrl-btn">
+              class="vmi-footer-ctrl-btn vmi-alert-color">
                 Delete
             </div>
             <div
@@ -208,5 +252,14 @@ export default {
     border: 0.1em solid var(--foreground-color);
     border-radius: 0.25em;
     flex: 1;
+}
+
+.vmi-hide {
+    display: none;
+    visibility: hidden;
+}
+
+.vmi-alert-color {
+    color: var(--warning-color);
 }
 </style>
