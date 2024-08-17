@@ -1,11 +1,13 @@
 <script>
 import SelectionHeader from '../components/inventory/SelectionHeader.vue';
 import ViewMyItems from '../components/inventory/ViewMyItems.vue'
+import ViewHistory from '../components/inventory/ViewHistory.vue';
 
 export default {
     components: {
         SelectionHeader,
         ViewMyItems,
+        ViewHistory,
     },
     data() {
         return {
@@ -37,6 +39,9 @@ export default {
             <ViewMyItems
               v-if="this.showInventory">
             </ViewMyItems>
+            <ViewHistory
+              v-else>
+            </ViewHistory>
         </div>
     </div>
 </template>
