@@ -32,6 +32,7 @@ export default {
     <div class="vil-background">
         <ItemInfoBar
           v-for="item in this.items"
+          :selectable="true"
           :item="item"
           @item-selected="relayItemSelected"
           @more-info-selected="relayMoreItemInfo">

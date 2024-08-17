@@ -1,6 +1,7 @@
 <script>
 import ViewItemList from './ViewItemList.vue';
 import ViewItemInfo from './ViewItemInfo.vue';
+import ViewItemDeletionConfirmation from './ViewItemDeletionConfirmation.vue';
 
 const mockNutritionalValues = {
     'calories': 100,
@@ -15,6 +16,7 @@ export default {
     components: {
         ViewItemList,
         ViewItemInfo,
+        ViewItemDeletionConfirmation,
     },
     data() {
         return {
@@ -123,6 +125,7 @@ export default {
             ],
             itemsSelected: [],
             itemOfInterest: undefined,
+            showDeleteConfirmation: false,
         }
     },
     mounted() {
@@ -134,10 +137,6 @@ export default {
     },
     methods: {
         itemSelected(item, checked) {
-            console.log('selected item:')
-            console.log(item)
-            console.log('checked?')
-            console.log(checked)
             item.checked = checked
             if (checked) {
                 this.addSelectedItem(item)
@@ -148,8 +147,6 @@ export default {
             console.log(this.itemsSelected)
         },
         moreItemInfoRequested(item) {
-            console.log('more info requested on object:')
-            console.log(item)
             this.itemOfInterest = item
             this.showDeleteBtn = true
         },
@@ -178,6 +175,24 @@ export default {
             this.itemOfInterest = undefined
             this.showDeleteBtn = false
         },
+        deleteItemConfirmation() { // handles first time pressing Delete btn and actual deletion
+            if (this.showDeleteConfirmation) { // confirmed deletion
+                this.deleteItem()
+            }
+            else {
+                // show deletion confirmation
+                this.showDeleteConfirmation = true
+            }
+        },
+        cancelItemConfirmation() {
+            this.showDeleteConfirmation = false
+        },
+        deleteItem() {
+            console.log('delete this object!')
+            console.log(this.itemOfInterest)
+            this.itemOfInterest = undefined
+            this.showDeleteConfirmation = false
+        }
     }
 }
 </script>
@@ -192,15 +207,21 @@ export default {
               @more-item-info="moreItemInfoRequested">
             </ViewItemList>
             <ViewItemInfo
-              :class="{ 'vmi-hide': this.itemOfInterest === undefined }"
+              :class="{ 'vmi-hide': this.itemOfInterest === undefined || this.showDeleteConfirmation }"
               :item="this.itemOfInterest"
               @canceled="hideInfoPanel">
             </ViewItemInfo>
+            <ViewItemDeletionConfirmation
+              v-if="(this.itemOfInterest !== undefined && this.showDeleteConfirmation)"
+              :item="this.itemOfInterest || {}"
+              @cancelled="cancelItemConfirmation">
+            </ViewItemDeletionConfirmation>
         </div>
 
         <div class="vmi-footer-buttons">
             <div
               v-if="this.showDeleteBtn"
+              @click="deleteItemConfirmation"
               class="vmi-footer-ctrl-btn vmi-alert-color">
                 Delete
             </div>

@@ -4,6 +4,7 @@ import Checkbox from '../interactive/Checkbox.vue';
 export default {
     props: [
         'item',
+        'selectable',
     ],
     emits: [
         'itemSelected',
@@ -32,6 +33,7 @@ export default {
 <template>
     <div class="iib-background">
         <Checkbox
+          v-if="this.selectable"
           :checked="item.checked"
           @checked-state-changed="relayItemSelected">
         </Checkbox>
@@ -47,6 +49,7 @@ export default {
             {{ item.name || 'N/A' }}
         </div>
         <div
+          v-if="this.selectable"
           @click="moreItemInfoPressed"
           class="iib-item-menu">
         </div>
